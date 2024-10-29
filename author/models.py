@@ -17,7 +17,7 @@ class Author(models.Model):
     passcode = models.CharField(
         max_length=6,
         validators=[ValidatorPasscode()],
-        help_text= "Your passcode must be a combination of 6 digits.",
+        help_text="Your passcode must be a combination of 6 digits.",
     )
 
     pets_number = models.PositiveSmallIntegerField()
@@ -26,3 +26,29 @@ class Author(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Post(models.Model):
+    title = models.CharField(
+        max_length=50,
+        validators=[MinLengthValidator(5)],
+        error_messages={"unique": "Oops! That title is already taken. How about something fresh and fun?"}
+    )
+
+    image_url = models.URLField(
+        help_text="Share your funniest furry photo URL!",
+    )
+
+    content = models.TextField()
+    updated_at = models.DateField(
+        auto_now=True
+    )
+
+    author = models.ForeignKey(
+        Author,
+        on_delete=models.CASCADE,
+        related_name="posts",
+    )
+
+    def __str__(self):
+        return self.title
