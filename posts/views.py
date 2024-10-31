@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, DetailView, DeleteView
 
-# Create your views here.
+
+class NewPost(TemplateView):
+    template_name = 'post/create-post.html'
