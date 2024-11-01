@@ -1,6 +1,5 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
-
 from FurryFunnies.author.models import Author
 
 
@@ -25,6 +24,9 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name="posts",
     )
+
+    class Meta:
+        db_table = 'posts_post'
 
     def __str__(self):
         return self.title

@@ -8,7 +8,12 @@ class CreateAuthorView(CreateView):
     model = Author
     template_name = 'author/create-author.html'
     fields = ['first_name', 'last_name', 'passcode', 'pets_number']
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard')
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
 
 
 class AuthorProfileDetails(TemplateView):
